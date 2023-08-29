@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Calculadora jquery</title>
+	<script src="jquery-3.1.1.min.js"></script>
+	<link rel="stylesheet" href="estilo.css">
+
+	<h1>----------- Practica 1 -----------</h1>
+</head>
+<body>
+	
+	<div class="cal_form" style="text-align:center; ">
+		<div class="container">
+			<span style="--l: '¡H';">Cal</span>
+			<span style="--l: 'e';">cula</span>
+			<span style="--l: 'l';">do</span>
+			<span style="--l: 'l';">ra</span>
+		  </div>
+		<table align="center">
+			<tr>
+				<div id="cantidad1" style="text-align: center;"></div>
+				<input id="calculador" readonly="" autofocus type="text" name="btn" style="text-align:right;">
+				<p>El ultimo numero es el que domina-- 3/9=3</p>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td><button id="btnca" class="btn-4">CA</button></td>
+				<td><button id="btnc" class="btn-4">C</button></td>
+			</tr>
+			<tr>
+				<td><button id="btn7" class="btn-4">7</button></td>
+				<td><button id="btn8" class="btn-4">8</button></td>
+				<td><button id="btn9" class="btn-4">9</button></td>
+				<td><button id="btndiv" class="btn-4">/</button></td>
+			</tr>
+			<tr>
+				<td><button id="btn4" class="btn-4">4</button></td>
+				<td><button id="btn5" class="btn-4">5</button></td>
+				<td><button id="btn6" class="btn-4">6</button></td>
+				<td><button id="btnmulti" class="btn-4">x</button></td>
+			</tr>
+			<tr>
+				<td><button id="btn1" class="btn-4">1</button></td>
+				<td><button id="btn2" class="btn-4">2</button></td>
+				<td><button id="btn3" class="btn-4">3</button></td>
+				<td><button id="btnsum" class="btn-4">+</button></td>
+			</tr>
+			<tr>
+				<td><button id="btn0" class="btn-4">0</button></td>
+				<td><button id="btnpunto" class="btn-4">.</button></td>
+				<td><button id="btnigual" class="btn-4" onclick="operaracioncompleta()" >=</button></td>
+				<td><button id="btnmen" class="btn-4">-</button></td>
+			</tr>
+		</table>
+	</div>
+	
+</body>
+</html>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		$('#btnc').click(function(){
+			$('#calculador').val("");
+		});
+		$('#btnca').click(function(){
+			$('#calculador').val("");
+			$('#cantidad1').text("");
+		});
+
+		creaCadena('btn0',0);
+		creaCadena('btn1',1);
+		creaCadena('btn2',2);
+		creaCadena('btn3',3);
+		creaCadena('btn4',4);
+		creaCadena('btn5',5);
+		creaCadena('btn6',6);
+		creaCadena('btn7',7);
+		creaCadena('btn8',8);
+		creaCadena('btn9',9);
+		creaCadena('btnpunto','.');
+
+		creaOperacion('btndiv','/');
+		creaOperacion('btnmulti','x');
+		creaOperacion('btnsum','+');
+		creaOperacion('btnmen','-');
+	});
+</script>
+<script type="text/javascript">
+	function creaCadena(control,valor){
+		$('#' + control).click(function(){
+			var valActual=$('#calculador').val();
+			cadena=valActual + valor;
+			$('#calculador').val(cadena);
+		});
+	}
+
+	function creaOperacion(control,operacion){
+		$('#' + control).click(function(){
+			valorActual=$('#calculador').val();
+			$('#cantidad1').text(operacion+" "+valorActual);
+			$('#calculador').val("");
+		});
+	}
+
+	function operaracioncompleta(){
+		valorActual=$('#calculador').val();
+		cantidadguardada=$('#cantidad1').text();
+		tipo=cantidadguardada.split(" ");
+
+		switch(tipo[0]){
+			case '+':
+				resultado=parseInt(valorActual) + parseInt(tipo[1]);
+
+				$('#calculador').val(resultado);
+			break;
+			case '-':
+				resultado=parseInt(valorActual) - parseInt(tipo[1]);
+
+				$('#calculador').val(resultado);
+			break;
+			case 'x':
+				resultado=parseInt(valorActual) * parseInt(tipo[1]);
+
+				$('#calculador').val(resultado);
+			break;
+			case '/':
+				resultado=parseInt(valorActual) / parseInt(tipo[1]);
+
+				$('#calculador').val(resultado);
+			break;
+
+		}
+
+		
+
+	}
+
+</script>
+
+
